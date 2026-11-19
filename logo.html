@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Uncanny Artistry Logo Direction</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<!--FONTS-->
+<link rel="stylesheet" href="styles.css">
+<style>
+  .lp { padding-block: 40px 80px; }
+  .lp-head { display: grid; gap: 14px; margin-bottom: 36px; }
+  .lp-head p { max-width: 56ch; }
+  .back { font-weight: 700; }
+  .boards { display: grid; gap: 18px; }
+  .board { display: grid; place-items: center; min-height: 260px; padding: 32px; border: 2.5px solid var(--ink); }
+  .b-paper { background: var(--paper); }
+  .b-ink { background: var(--ink); color: var(--paper); }
+  .b-ink .wm-top { color: var(--paper); }
+  .b-lime { background: var(--lime); }
+  .b-white { background: var(--white); }
+  .b-lime .wm-bot::before { background: var(--white); }
+  .big .wm { --wm: clamp(3.6rem, 16vw, 7rem); }
+  .sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 28px 40px; }
+  .mono { width: 120px; height: 120px; display: grid; place-items: center; background: var(--ink); position: relative; }
+  .mono b { font-family: var(--font); font-stretch: 62%; font-weight: 900; font-size: 4.6rem; line-height: 1; color: var(--lime); text-shadow: .04em .04em 0 var(--magenta); }
+  .mono.sm { width: 48px; height: 48px; } .mono.sm b { font-size: 1.9rem; }
+  .fallback { font: 800 1.5rem/1 Arial, Helvetica, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+  .notes { display: grid; gap: 14px; margin-top: 40px; max-width: 62ch; }
+  .notes h2 { font-size: 1.1rem; font-weight: 800; }
+  .label { font-size: .8rem; color: var(--muted); margin-top: 10px; }
+  .b-ink .label { color: #a9a9a2; }
+  @media (min-width: 760px) { .boards { grid-template-columns: 1fr 1fr; } .span2 { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div class="notice" role="note">Provisional logo direction. Not approved, not final and not a registered mark.</div>
+<main class="wrap lp">
+  <div class="lp-head">
+    <a class="back" href="index.html">Back to the homepage concept</a>
+    <h1 class="display h2">Logo direction</h1>
+    <p>The name is Uncanny, so the mark is slightly off on purpose. The heavy condensed top word carries a magenta shadow that sits a few pixels out of register, like a print that did not line up. Artistry is written by hand on a lime marker swipe, so the brand reads as art made on top of a product.</p>
+  </div>
+
+  <div class="boards">
+    <div class="board b-paper big span2"><div><a class="logo" href="index.html" aria-label="Uncanny Artistry"><span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span></a><p class="label">Primary wordmark on paper</p></div></div>
+    <div class="board b-ink big"><div><span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span><p class="label">On black</p></div></div>
+    <div class="board b-lime big"><div><span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span><p class="label" style="color:#0A0A0A">On lime</p></div></div>
+    <div class="board b-white">
+      <div class="sizes">
+        <div><div class="mono"><b>UA</b></div><p class="label">Monogram</p></div>
+        <div><div class="mono sm"><b>UA</b></div><p class="label">Small</p></div>
+        <div><span class="wm" style="--wm:1.3rem"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span><p class="label">Small wordmark</p></div>
+      </div>
+    </div>
+    <div class="board b-white"><div><p class="fallback">Uncanny Artistry</p><p class="label">Plain text fallback if fonts do not load</p></div></div>
+  </div>
+
+  <div class="notes">
+    <h2>Status</h2>
+    <p>Exploratory only. No trademark search has been done, and no registered or trademark symbols are used. Final vector files, usage rules and a full brand package belong to separately agreed work.</p>
+  </div>
+</main>
+</body>
+</html>
