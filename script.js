@@ -67,6 +67,38 @@
     });
   }
 
+
+  /* Header: compact on scroll, highlight the section in view */
+  var header = document.querySelector('.site-header');
+  function onScroll() { header.classList.toggle('is-compact', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var navLinks = [].slice.call(document.querySelectorAll('.nav a'));
+  if ('IntersectionObserver' in window && navLinks.length) {
+    var map = {};
+    navLinks.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function (a) { a.removeAttribute('aria-current'); });
+        var link = map[en.target.id];
+        if (link) link.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(map).forEach(function (id) {
+      var sec = document.getElementById(id);
+      if (sec) spy.observe(sec);
+    });
+  }
+
+  /* Category chips are a layout demo only */
+  document.querySelectorAll('.cat').forEach(function (c) {
+    c.addEventListener('click', function () {
+      if (!c.disabled) showToast('More categories will appear here as the brand grows.');
+    });
+  });
+
   /* Join form (prototype only) */
   var form = document.querySelector('.join-form');
   if (form) {

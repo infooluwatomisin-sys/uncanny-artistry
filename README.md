@@ -13,6 +13,14 @@ Open `index.html` in a browser. No build step, no dependencies. To serve locally
 - `fonts/` Archivo (variable) and Permanent Marker, both SIL Open Font License, licenses included
 - `assets/favicon.svg` placeholder favicon
 
+## Version 2 refinements
+- Drinkware art rebuilt with cylinder shading, lid and rim detail, soft highlights, contact shadows, printed graphics and halftone texture. Still concept shapes, not products.
+- Hero now has a glossy floor with reflections, a spotlight, a rotating Drinkware first, more to come badge, and a marker note.
+- Product area is a bento grid on desktop and a swipe row on mobile. A category chip row and a More to come tile show how new categories can be added.
+- Header gains an Explore drinkware button, a compact state on scroll and a highlighted current section.
+- Footer closes with an outlined full width wordmark.
+- Logo: paint swipe has a hand rough edge, tighter print offset, plus a horizontal lockup on the logo page.
+
 ## Design rationale (for the client)
 - **Direction.** Black and white foundation with two controlled pops, electric lime and magenta. Graffiti appears only inside the art (paint band, drips, spray, marker notes). The layout stays clean so it feels bold without clutter.
 - **Type.** Archivo at its tightest width and heaviest weight carries the headlines, large and condensed. Permanent Marker is used sparingly for hand written notes. Body text is plain Archivo for easy reading.
