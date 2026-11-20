@@ -9,7 +9,17 @@
 <meta name="theme-color" content="#0A0A0A">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<!--FONTS-->
+<script>
+/* Preload fonts when served over http(s). Skipped on file:// to avoid noisy console errors. */
+if (/^https?:/.test(location.protocol)) {
+  ['archivo-latin-wdth-normal', 'permanent-marker-latin-400-normal'].forEach(function (f) {
+    var l = document.createElement('link');
+    l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
+    l.href = 'fonts/' + f + '.woff2';
+    document.head.appendChild(l);
+  });
+}
+</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -115,7 +125,7 @@
         <rect x="40" y="40" width="120" height="270" fill="var(--body)"/>
         <path d="M40 140 H160 V160 H40Z" fill="var(--accent)"/>
         <circle cx="100" cy="212" r="30" fill="var(--accent)"/>
-        <path d="M85 197 L115 227 M115 197 L85 227" stroke="var(--ink)" stroke-width="6.5" stroke-linecap="round"/>
+        <path d="M85 197 L115 227 M115 197 L85 227" stroke="var(--lid)" stroke-width="6.5" stroke-linecap="round"/>
         <rect x="40" y="256" width="120" height="52" fill="var(--ink)" mask="url(#m-dots)"/>
         <path d="M84 48 Q84 66 62 82 Q50 92 50 120 V288 Q50 306 68 306 H132 Q150 306 150 288 V120 Q150 92 138 82 Q116 66 116 48 Z" fill="url(#g-cyl)"/>
         <path d="M84 48 Q84 66 62 82 Q50 92 50 120 V288 Q50 306 68 306 H132 Q150 306 150 288 V120 Q150 92 138 82 Q116 66 116 48 Z" fill="url(#g-top)"/>
@@ -148,12 +158,10 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="notice" role="note">Concept homepage for review. All imagery is conceptual.</div>
-
 <header class="site-header" id="top">
   <div class="wrap header-row">
     <a class="logo" href="#top" aria-label="Uncanny Artistry, back to top">
-      <span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span>
+      <span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span>
     </a>
 
     <nav class="nav" aria-label="Primary">
@@ -161,19 +169,11 @@
         <li><a href="#drinkware">Drinkware</a></li>
         <li><a href="#ideas">Ideas</a></li>
         <li><a href="#story">Story</a></li>
-        <li><a href="#join">Join the list</a></li>
       </ul>
     </nav>
 
     <div class="header-tools">
       <a class="btn btn-sm hdr-cta" href="#drinkware">Explore drinkware</a>
-      <button class="icon-btn" type="button" data-demo="Search is a placeholder in this concept." aria-label="Search">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 L21 21"/></svg>
-      </button>
-      <button class="icon-btn bag" type="button" data-demo="The bag is a placeholder until the store is connected." aria-label="Bag, 0 items">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8 H19 L20 21 H4 Z"/><path d="M9 8 V6 a3 3 0 0 1 6 0 V8"/></svg>
-        <span class="bag-count" aria-hidden="true">0</span>
-      </button>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
         <span class="menu-label">Menu</span>
         <span class="burger" aria-hidden="true"><i></i><i></i></span>
@@ -188,10 +188,8 @@
       <li><a href="#drinkware">Drinkware</a></li>
       <li><a href="#ideas">Ideas</a></li>
       <li><a href="#story">Story</a></li>
-      <li><a href="#join">Join the list</a></li>
     </ul>
     <a class="btn btn-lime menu-cta" href="#drinkware">Explore the drinkware</a>
-    <p class="menu-note">Concept homepage. Links scroll to sections on this page.</p>
   </div>
 </div>
 
@@ -259,7 +257,6 @@
           <path d="M60 674 q60 -10 150 -4" stroke="#C8FF2E" stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(-6 52 660)"/>
           <rect width="600" height="720" filter="url(#grain)" opacity=".14"/>
         </svg>
-        <figcaption class="sticker">Concept imagery</figcaption>
         <div class="badge" aria-hidden="true">
           <svg viewBox="0 0 120 120">
             <defs><path id="badge-circ" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs>
@@ -273,7 +270,8 @@
   </section>
 
   <!-- MARQUEE -->
-  <div class="marquee" aria-label="Make every sip a statement">
+  <section class="marquee" aria-label="Brand line">
+    <p class="sr">Make every sip a statement.</p>
     <div class="marquee-track" aria-hidden="true">
       <ul>
         <li>Make every sip a statement</li><li class="dot"><svg width="22" height="22"><use href="#i-star"/></svg></li>
@@ -286,9 +284,13 @@
         <li>Make every sip a statement</li><li class="dot"><svg width="22" height="22"><use href="#i-star"/></svg></li>
       </ul>
     </div>
-  </div>
+  <button class="pause" type="button" aria-pressed="false" aria-label="Pause moving text and badge">
+      <svg class="i-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      <svg class="i-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M7 5 L19 12 L7 19 Z"/></svg>
+    </button>
+  </section>
 
-  <!-- FEATURES -->
+    <!-- FEATURES -->
   <section class="ideas" id="ideas" aria-labelledby="ideas-title">
     <div class="wrap ideas-grid">
       <div class="ideas-head">
@@ -320,66 +322,115 @@
     <div class="wrap">
       <div class="shop-head">
         <h2 class="display h2" id="shop-title">The drinkware</h2>
-        <div class="shop-meta">
-          <ul class="cats" aria-label="Categories">
-            <li><button class="cat is-on" type="button" aria-pressed="true">Drinkware</button></li>
-            <li><button class="cat" type="button" disabled aria-disabled="true">Next category, to be announced</button></li>
-          </ul>
-          <p class="shop-note">Layout preview with placeholder slots. Names, prices and details are added once the range is confirmed.</p>
-        </div>
+        <p class="shop-note">Three shapes to start with, each one a blank wall for the brand's art.</p>
       </div>
 
-      <ul class="bento" aria-label="Drinkware placeholder slots">
-        <li class="tile t-feature t-lime">
-          <a href="#" data-demo="Placeholder slot. Product pages come after the range is confirmed." aria-label="Placeholder drinkware slot one">
-            <div class="tile-art">
-              <span class="deco"></span>
-              <svg class="p p-back" viewBox="0 0 200 320" aria-hidden="true" style="--body:#FF2D8D;--lid:#fff;--shade:#b01a63;--accent:#0A0A0A;--ink:#fff"><use href="#p-mug"/></svg>
-              <svg class="p p-main" viewBox="0 0 200 320" aria-hidden="true" style="--body:#0A0A0A;--lid:#fff;--shade:#333;--accent:#FF2D8D;--ink:#C8FF2E"><use href="#p-tumbler"/></svg>
-              <span class="chip">Concept imagery</span>
-            </div>
-            <div class="tile-bar"><span class="tile-name">Drinkware slot one</span><span class="tile-sub">Product name and details to come</span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-        </li>
-        <li class="tile t-magenta">
-          <a href="#" data-demo="Placeholder slot. Product pages come after the range is confirmed." aria-label="Placeholder drinkware slot two">
-            <div class="tile-art">
-              <span class="deco"></span>
-              <svg class="p p-main" viewBox="0 0 200 320" aria-hidden="true" style="--body:#fff;--lid:#0A0A0A;--shade:#d9d9d4;--accent:#C8FF2E;--ink:#FF2D8D"><use href="#p-mug"/></svg>
-              <span class="chip">Concept imagery</span>
-            </div>
-            <div class="tile-bar"><span class="tile-name">Drinkware slot two</span><span class="tile-sub">Product name and details to come</span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-        </li>
-        <li class="tile t-ink">
-          <a href="#" data-demo="Placeholder slot. Product pages come after the range is confirmed." aria-label="Placeholder drinkware slot three">
-            <div class="tile-art">
-              <span class="deco"></span>
-              <svg class="p p-main" viewBox="0 0 200 320" aria-hidden="true" style="--body:#C8FF2E;--lid:#fff;--shade:#9bc718;--accent:#0A0A0A;--ink:#0A0A0A"><use href="#p-bottle"/></svg>
-              <span class="chip">Concept imagery</span>
-            </div>
-            <div class="tile-bar"><span class="tile-name">Drinkware slot three</span><span class="tile-sub">Product name and details to come</span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-        </li>
-        <li class="tile t-paper">
-          <a href="#" data-demo="Placeholder slot. Product pages come after the range is confirmed." aria-label="Placeholder drinkware slot four">
-            <div class="tile-art">
-              <span class="deco"></span>
-              <svg class="p p-main" viewBox="0 0 200 320" aria-hidden="true" style="--body:#fff;--lid:#0A0A0A;--shade:#d9d9d4;--accent:#FF2D8D;--ink:#0A0A0A"><use href="#p-glass"/></svg>
-              <span class="chip">Concept imagery</span>
-            </div>
-            <div class="tile-bar"><span class="tile-name">Drinkware slot four</span><span class="tile-sub">Product name and details to come</span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H19M13 6l6 6-6 6"/></svg></span></div>
-          </a>
-        </li>
-        <li class="tile t-next">
-          <div class="next-inner">
-            <svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 4 V20 M4 12 H20"/></svg>
-            <h3>More to come</h3>
-            <p>This grid is built to grow. New categories slot in here when the brand is ready to announce them.</p>
-          </div>
-        </li>
-      </ul>
-      <p class="swipe-hint" aria-hidden="true">Swipe to see more slots</p>
+      <article class="pp pp-lime" aria-labelledby="pp1-title">
+        <div class="pp-art">
+          <svg viewBox="0 0 640 600" role="img" aria-label="Illustration of a tall black tumbler with a white lid, a magenta band and a lime wave print, with a close up of the print." preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="s1-spot" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <linearGradient id="s1-floor" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#222"/><stop offset="1" stop-color="#0A0A0A"/></linearGradient>
+              <linearGradient id="s1-fade" x1="0" x2="0" y1="470" y2="600" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/></linearGradient>
+              <mask id="s1-mask" maskUnits="userSpaceOnUse" x="0" y="470" width="640" height="130"><rect x="0" y="470" width="640" height="130" fill="url(#s1-fade)"/></mask>
+              <clipPath id="s1-lens"><circle cx="516" cy="136" r="80"/></clipPath>
+              <svg id="s1-piece" x="195" y="92" width="250" height="400" viewBox="0 0 200 320" style="--body:#0A0A0A;--lid:#fff;--shade:#333;--accent:#FF2D8D;--ink:#C8FF2E"><use href="#p-tumbler"/></svg>
+            </defs>
+            <rect width="640" height="600" fill="#C8FF2E"/>
+            <rect width="640" height="600" fill="url(#s1-spot)"/>
+            <circle cx="310" cy="262" r="188" fill="#FF2D8D" filter="url(#rough)"/>
+            <rect x="0" y="470" width="640" height="130" fill="url(#s1-floor)"/>
+            <rect x="0" y="468" width="640" height="3" fill="#fff" opacity=".6"/>
+            <g mask="url(#s1-mask)"><use href="#s1-piece" transform="translate(0 940) scale(1 -1)" opacity=".38"/></g>
+            <g class="pp-piece"><use href="#s1-piece"/></g>
+            <g clip-path="url(#s1-lens)">
+              <rect x="430" y="50" width="172" height="172" fill="#C8FF2E"/>
+              <svg x="430" y="50" width="172" height="172" viewBox="50 156 100 100" style="--body:#0A0A0A;--lid:#fff;--shade:#333;--accent:#FF2D8D;--ink:#C8FF2E"><use href="#p-tumbler" width="200" height="320"/></svg>
+            </g>
+            <circle cx="516" cy="136" r="80" fill="none" stroke="#fff" stroke-width="5"/>
+            <text x="452" y="250" fill="#fff" font-family="Permanent Marker, Marker Felt, cursive" font-size="24" transform="rotate(-6 452 250)">up close</text>
+            <rect width="640" height="600" filter="url(#grain)" opacity=".12"/>
+          </svg>
+        </div>
+        <div class="pp-copy">
+          <p class="tag">wave print</p>
+          <h3 class="display pp-title" id="pp1-title">The tumbler</h3>
+          <p class="pp-body">A tall, bold canvas for the everyday. Black body, white lid, a magenta band and a lime wave you can spot across the room.</p>
+          <button class="btn btn-primary" type="button" data-open data-title="The tumbler" data-tag="wave print" data-copy="A tall, bold canvas for the everyday. Black body, white lid, a magenta band and a lime wave you can spot across the room." data-bg="#C8FF2E" data-piece="p-tumbler" data-style="--body:#0A0A0A;--lid:#fff;--shade:#333;--accent:#FF2D8D;--ink:#C8FF2E">See the concept</button>
+        </div>
+      </article>
+
+      <article class="pp pp-magenta" aria-labelledby="pp2-title">
+        <div class="pp-art">
+          <svg viewBox="0 0 640 600" role="img" aria-label="Illustration of a white mug with a lime band and a magenta zigzag print, with a close up of the print." preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="s2-spot" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <linearGradient id="s2-floor" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#222"/><stop offset="1" stop-color="#0A0A0A"/></linearGradient>
+              <linearGradient id="s2-fade" x1="0" x2="0" y1="470" y2="600" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/></linearGradient>
+              <mask id="s2-mask" maskUnits="userSpaceOnUse" x="0" y="470" width="640" height="130"><rect x="0" y="470" width="640" height="130" fill="url(#s2-fade)"/></mask>
+              <clipPath id="s2-lens"><circle cx="516" cy="136" r="80"/></clipPath>
+              <svg id="s2-piece" x="160" y="34" width="300" height="480" viewBox="0 0 200 320" style="--body:#fff;--lid:#0A0A0A;--shade:#d9d9d4;--accent:#C8FF2E;--ink:#FF2D8D"><use href="#p-mug"/></svg>
+            </defs>
+            <rect width="640" height="600" fill="#FF2D8D"/>
+            <rect width="640" height="600" fill="url(#s2-spot)"/>
+            <circle cx="310" cy="262" r="188" fill="#0A0A0A" filter="url(#rough)"/>
+            <rect x="0" y="470" width="640" height="130" fill="url(#s2-floor)"/>
+            <rect x="0" y="468" width="640" height="3" fill="#fff" opacity=".6"/>
+            <g mask="url(#s2-mask)"><use href="#s2-piece" transform="translate(0 940) scale(1 -1)" opacity=".38"/></g>
+            <g class="pp-piece"><use href="#s2-piece"/></g>
+            <g clip-path="url(#s2-lens)">
+              <rect x="430" y="50" width="172" height="172" fill="#FF2D8D"/>
+              <svg x="430" y="50" width="172" height="172" viewBox="40 160 100 100" style="--body:#fff;--lid:#0A0A0A;--shade:#d9d9d4;--accent:#C8FF2E;--ink:#FF2D8D"><use href="#p-mug" width="200" height="320"/></svg>
+            </g>
+            <circle cx="516" cy="136" r="80" fill="none" stroke="#fff" stroke-width="5"/>
+            <text x="452" y="250" fill="#fff" font-family="Permanent Marker, Marker Felt, cursive" font-size="24" transform="rotate(-6 452 250)">up close</text>
+            <rect width="640" height="600" filter="url(#grain)" opacity=".12"/>
+          </svg>
+        </div>
+        <div class="pp-copy">
+          <p class="tag">zigzag band</p>
+          <h3 class="display pp-title" id="pp2-title">The mug</h3>
+          <p class="pp-body">A white canvas with a lime band and a magenta zigzag. Made for slow mornings and loud ideas.</p>
+          <button class="btn btn-primary" type="button" data-open data-title="The mug" data-tag="zigzag band" data-copy="A white canvas with a lime band and a magenta zigzag. Made for slow mornings and loud ideas." data-bg="#FF2D8D" data-piece="p-mug" data-style="--body:#fff;--lid:#0A0A0A;--shade:#d9d9d4;--accent:#C8FF2E;--ink:#FF2D8D">See the concept</button>
+        </div>
+      </article>
+
+      <article class="pp pp-ink" aria-labelledby="pp3-title">
+        <div class="pp-art">
+          <svg viewBox="0 0 640 600" role="img" aria-label="Illustration of a lime bottle with a white cap and a black cross badge, with a close up of the badge." preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="s3-spot" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <linearGradient id="s3-floor" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#262626"/><stop offset="1" stop-color="#0A0A0A"/></linearGradient>
+              <linearGradient id="s3-fade" x1="0" x2="0" y1="470" y2="600" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/></linearGradient>
+              <mask id="s3-mask" maskUnits="userSpaceOnUse" x="0" y="470" width="640" height="130"><rect x="0" y="470" width="640" height="130" fill="url(#s3-fade)"/></mask>
+              <clipPath id="s3-lens"><circle cx="516" cy="136" r="80"/></clipPath>
+              <svg id="s3-piece" x="205" y="118" width="230" height="368" viewBox="0 0 200 320" style="--body:#C8FF2E;--lid:#fff;--shade:#9bc718;--accent:#0A0A0A;--ink:#0A0A0A"><use href="#p-bottle"/></svg>
+            </defs>
+            <rect width="640" height="600" fill="#0A0A0A"/>
+            <rect width="640" height="600" fill="url(#s3-spot)"/>
+            <circle cx="310" cy="262" r="188" fill="#FF2D8D" filter="url(#rough)"/>
+            <rect x="0" y="470" width="640" height="130" fill="url(#s3-floor)"/>
+            <rect x="0" y="468" width="640" height="3" fill="#fff" opacity=".6"/>
+            <g mask="url(#s3-mask)"><use href="#s3-piece" transform="translate(0 940) scale(1 -1)" opacity=".38"/></g>
+            <g class="pp-piece"><use href="#s3-piece"/></g>
+            <g clip-path="url(#s3-lens)">
+              <rect x="430" y="50" width="172" height="172" fill="#0A0A0A"/>
+              <svg x="430" y="50" width="172" height="172" viewBox="55 160 90 90" style="--body:#C8FF2E;--lid:#fff;--shade:#9bc718;--accent:#0A0A0A;--ink:#0A0A0A"><use href="#p-bottle" width="200" height="320"/></svg>
+            </g>
+            <circle cx="516" cy="136" r="80" fill="none" stroke="#fff" stroke-width="5"/>
+            <text x="452" y="250" fill="#fff" font-family="Permanent Marker, Marker Felt, cursive" font-size="24" transform="rotate(-6 452 250)">up close</text>
+            <rect width="640" height="600" filter="url(#grain)" opacity=".12"/>
+          </svg>
+        </div>
+        <div class="pp-copy">
+          <p class="tag">cross badge</p>
+          <h3 class="display pp-title" id="pp3-title">The bottle</h3>
+          <p class="pp-body">Lime body, a bold cross badge and a halftone fade at the base. The loudest thing in the bag.</p>
+          <button class="btn btn-primary" type="button" data-open data-title="The bottle" data-tag="cross badge" data-copy="Lime body, a bold cross badge and a halftone fade at the base. The loudest thing in the bag." data-bg="#0A0A0A" data-piece="p-bottle" data-style="--body:#C8FF2E;--lid:#fff;--shade:#9bc718;--accent:#0A0A0A;--ink:#0A0A0A">See the concept</button>
+        </div>
+      </article>
+
+      <p class="more-strip"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 4V20M4 12H20"/></svg>Drinkware first. More from Uncanny Artistry to come.</p>
     </div>
   </section>
 
@@ -394,10 +445,9 @@
           <li>Pick your own colors.</li>
           <li>Make it yours.</li>
         </ul>
-        <p class="draft-note">Draft copy for layout. The final story comes from the brand.</p>
       </div>
 
-      <ul class="moments" aria-label="Everyday moments, concept imagery">
+      <ul class="moments" aria-label="Everyday moments">
         <li class="m m-morning">
           <svg viewBox="0 0 300 380" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <rect width="300" height="380" fill="#C8FF2E"/>
@@ -439,22 +489,18 @@
         </li>
       </ul>
     </div>
-    <p class="wrap story-caption">Concept imagery. Final photography and artwork are not yet made.</p>
   </section>
 
-  <!-- CTA / JOIN -->
-  <section class="join" id="join" aria-labelledby="join-title">
-    <div class="wrap join-grid">
-      <h2 class="display h1b" id="join-title">Make every sip a statement.</h2>
-      <div class="join-side">
-        <p>Be first to hear when the drinkware is ready.</p>
-        <form class="join-form" novalidate>
-          <label class="sr" for="email">Email address</label>
-          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-          <button class="btn btn-primary" type="submit">Join the list</button>
-          <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
-        </form>
-        <p class="fine">Prototype form. Nothing is sent or stored.</p>
+  <!-- CLOSING CTA -->
+  <section class="closing" id="closing" aria-labelledby="closing-title">
+    <div class="wrap closing-grid">
+      <h2 class="display h1b" id="closing-title">Make every sip a statement.</h2>
+      <div class="closing-side">
+        <p>Drinkware is where Uncanny Artistry starts. Take another look at the shapes, or read what the brand is about.</p>
+        <div class="closing-cta">
+          <a class="btn btn-primary" href="#drinkware">Explore the drinkware</a>
+          <a class="btn btn-ghost" href="#story">Read the story</a>
+        </div>
       </div>
     </div>
   </section>
@@ -463,9 +509,7 @@
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="foot-brand">
-      <a class="logo logo-lg" href="#top" aria-label="Uncanny Artistry, back to top">
-        <span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span>
-      </a>
+      <a class="logo logo-lg" href="#top" aria-label="Uncanny Artistry, back to top"><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></a>
       <p>A creative lifestyle brand starting with drinkware.</p>
     </div>
     <nav aria-label="Footer">
@@ -473,24 +517,40 @@
         <li><a href="#drinkware">Drinkware</a></li>
         <li><a href="#ideas">Ideas</a></li>
         <li><a href="#story">Story</a></li>
-        <li><a href="#join">Join the list</a></li>
       </ul>
     </nav>
     <ul class="foot-meta">
-      <li><a href="logo.html">Logo direction (provisional)</a></li>
-      <li><a href="#" data-demo="Policies are added once the store is set up.">Policies</a></li>
-      <li><a href="#" data-demo="Social links are added once accounts are confirmed.">Social</a></li>
+      <li><a href="logo.html">The wordmark</a></li>
+      <li><a href="#top">Back to top</a></li>
     </ul>
   </div>
   <p class="foot-mega" aria-hidden="true">Uncanny Artistry</p>
   <div class="wrap foot-base">
-    <p>Homepage concept by Tomisin. For review only, not a live store.</p>
-    <p>The wordmark is exploratory and not final.</p>
+    <p>Design concept. Product imagery is illustrative.</p>
+    <p>Design by Tomisin</p>
   </div>
 </footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog class="concept" id="concept" aria-labelledby="concept-title">
+  <div class="concept-inner">
+    <div class="concept-art" id="concept-art"></div>
+    <div class="concept-copy">
+      <p class="tag" id="concept-tag"></p>
+      <h2 class="display concept-title" id="concept-title"></h2>
+      <p id="concept-text"></p>
+      <p class="concept-fine">Sizes, finishes and pricing will be shared when the range is confirmed.</p>
+      <div class="concept-actions">
+        <a class="btn btn-primary" href="#story">Read the story</a>
+        <button class="btn btn-ghost" type="button" data-close>Close</button>
+      </div>
+    </div>
+    <button class="concept-x" type="button" data-close aria-label="Close preview">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19"/></svg>
+    </button>
+  </div>
+</dialog>
 
-<script src="script.js"></script>
+
+<script src="script.js" defer></script>
 </body>
 </html>

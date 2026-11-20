@@ -4,23 +4,6 @@
   var body = document.body;
   var menuBtn = document.querySelector('.menu-btn');
   var menu = document.getElementById('menu');
-  var toast = document.getElementById('toast');
-  var toastTimer;
-
-  /* Toast for placeholder controls */
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 3400);
-  }
-
-  document.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-demo]');
-    if (!el) return;
-    e.preventDefault();
-    showToast(el.getAttribute('data-demo'));
-  });
 
   /* Mobile menu */
   function setMenu(open) {
@@ -92,32 +75,46 @@
     });
   }
 
-  /* Category chips are a layout demo only */
-  document.querySelectorAll('.cat').forEach(function (c) {
-    c.addEventListener('click', function () {
-      if (!c.disabled) showToast('More categories will appear here as the brand grows.');
+  /* Pause moving text and badge */
+  var pause = document.querySelector('.pause');
+  if (pause) {
+    pause.addEventListener('click', function () {
+      var on = pause.getAttribute('aria-pressed') !== 'true';
+      pause.setAttribute('aria-pressed', String(on));
+      pause.setAttribute('aria-label', on ? 'Play moving text and badge' : 'Pause moving text and badge');
+      body.classList.toggle('motion-off', on);
     });
-  });
+  }
 
-  /* Join form (prototype only) */
-  var form = document.querySelector('.join-form');
-  if (form) {
-    var input = form.querySelector('input');
-    var msg = document.getElementById('form-msg');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
-      input.setAttribute('aria-invalid', ok ? 'false' : 'true');
-      if (!ok) {
-        msg.textContent = 'Enter a full email address, like name@example.com.';
-        input.focus();
-        return;
-      }
-      msg.textContent = 'Thanks. This is a prototype, so nothing was saved.';
-      form.reset();
+  /* Concept preview dialog */
+  var dlg = document.getElementById('concept');
+  var lastOpener = null;
+  function fill(btn) {
+    document.getElementById('concept-title').textContent = btn.dataset.title;
+    document.getElementById('concept-tag').textContent = btn.dataset.tag;
+    document.getElementById('concept-text').textContent = btn.dataset.copy;
+    var art = document.getElementById('concept-art');
+    art.style.background = btn.dataset.bg;
+    art.innerHTML = '<svg viewBox="0 0 200 320" role="img" aria-label="' + btn.dataset.title + ' illustration" style="' + btn.dataset.style + '"><use href="#' + btn.dataset.piece + '"/></svg>';
+  }
+  if (dlg && typeof dlg.showModal === 'function') {
+    document.querySelectorAll('[data-open]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        lastOpener = btn;
+        fill(btn);
+        dlg.showModal();
+        body.classList.add('dialog-open');
+      });
     });
-    input.addEventListener('input', function () {
-      input.setAttribute('aria-invalid', 'false');
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg || e.target.closest('[data-close]') || e.target.closest('a[href^="#"]')) dlg.close();
     });
+    dlg.addEventListener('close', function () {
+      body.classList.remove('dialog-open');
+      if (lastOpener) lastOpener.focus({ preventScroll: true });
+    });
+  } else {
+    /* no dialog support: hide the buttons rather than leave them dead */
+    document.querySelectorAll('[data-open]').forEach(function (b) { b.hidden = true; });
   }
 })();

@@ -3,10 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Uncanny Artistry Logo Direction</title>
+<title>Uncanny Artistry Wordmark</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<!--FONTS-->
+<script>
+/* Preload fonts when served over http(s). Skipped on file:// to avoid noisy console errors. */
+if (/^https?:/.test(location.protocol)) {
+  ['archivo-latin-wdth-normal', 'permanent-marker-latin-400-normal'].forEach(function (f) {
+    var l = document.createElement('link');
+    l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
+    l.href = 'fonts/' + f + '.woff2';
+    document.head.appendChild(l);
+  });
+}
+</script>
 <link rel="stylesheet" href="styles.css">
 <style>
   .lp { padding-block: 40px 80px; }
@@ -25,6 +35,7 @@
   .sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 28px 40px; }
   .mono { width: 120px; height: 120px; display: grid; place-items: center; background: var(--ink); position: relative; }
   .mono b { font-family: var(--font); font-stretch: 62%; font-weight: 900; font-size: 4.6rem; line-height: 1; color: var(--lime); text-shadow: .04em .04em 0 var(--magenta); }
+  .mono b i { font-style: normal; display: inline-block; transform: translate(.01em,-.07em) rotate(6deg); }
   .mono.sm { width: 48px; height: 48px; } .mono.sm b { font-size: 1.9rem; }
   .fallback { font: 800 1.5rem/1 Arial, Helvetica, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
   .lockup { display: flex; align-items: center; gap: 18px; }
@@ -40,32 +51,31 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
   <filter id="rough-sm" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
 </defs></svg>
-<div class="notice" role="note">Provisional logo direction. Not approved, not final and not a registered mark.</div>
 <main class="wrap lp">
   <div class="lp-head">
-    <a class="back" href="index.html">Back to the homepage concept</a>
-    <h1 class="display h2">Logo direction</h1>
-    <p>The name is Uncanny, so the mark is slightly off on purpose. The heavy condensed top word carries a magenta shadow that sits a few pixels out of register, like a print that did not line up. Artistry is written by hand on a lime marker swipe, so the brand reads as art made on top of a product.</p>
+    <a class="back" href="index.html">Back to the homepage</a>
+    <h1 class="display h2">The wordmark</h1>
+    <p>The name is Uncanny, so one letter is slightly off on purpose. The A tilts forward, the magenta print sits out of register and a drip falls from the U. Artistry is written by hand on a lime marker swipe, so the brand reads as art made on top of an object.</p>
   </div>
 
   <div class="boards">
-    <div class="board b-paper big span2"><div><a class="logo" href="index.html" aria-label="Uncanny Artistry"><span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span></a><p class="label">Primary wordmark on paper</p></div></div>
-    <div class="board b-ink big"><div><span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span><p class="label">On black</p></div></div>
-    <div class="board b-lime big"><div><span class="wm"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span><p class="label" style="color:#0A0A0A">On lime</p></div></div>
+    <div class="board b-paper big span2"><div><a class="logo" href="index.html" aria-label="Uncanny Artistry"><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></a><p class="label">Primary wordmark on paper</p></div></div>
+    <div class="board b-ink big"><div><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span><p class="label">On black</p></div></div>
+    <div class="board b-lime big"><div><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span><p class="label" style="color:#0A0A0A">On lime</p></div></div>
     <div class="board b-white">
       <div class="sizes">
-        <div><div class="mono"><b>UA</b></div><p class="label">Monogram</p></div>
-        <div><div class="mono sm"><b>UA</b></div><p class="label">Small</p></div>
-        <div><span class="wm" style="--wm:1.3rem"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span><p class="label">Small wordmark</p></div>
+        <div><div class="mono"><b>U<i>A</i></b></div><p class="label">Monogram</p></div>
+        <div><div class="mono sm"><b>U<i>A</i></b></div><p class="label">Small</p></div>
+        <div><span class="wm" role="img" aria-label="Uncanny Artistry" style="--wm:1.3rem"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span><p class="label">Small wordmark</p></div>
       </div>
     </div>
-    <div class="board b-white span2"><div><div class="lockup"><div class="mono"><b>UA</b></div><span class="wm" style="--wm:2.6rem"><span class="wm-top">Uncanny</span><span class="wm-bot">Artistry</span></span></div><p class="label">Horizontal lockup, monogram plus wordmark, for wide spaces such as headers and packaging labels</p></div></div>
+    <div class="board b-white span2"><div><div class="lockup"><div class="mono"><b>U<i>A</i></b></div><span class="wm" role="img" aria-label="Uncanny Artistry" style="--wm:2.6rem"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></div><p class="label">Horizontal lockup, monogram plus wordmark, for wide spaces such as headers and packaging labels</p></div></div>
     <div class="board b-white"><div><p class="fallback">Uncanny Artistry</p><p class="label">Plain text fallback if fonts do not load</p></div></div>
   </div>
 
   <div class="notes">
-    <h2>Status</h2>
-    <p>Exploratory only. No trademark search has been done, and no registered or trademark symbols are used. Final vector files, usage rules and a full brand package belong to separately agreed work.</p>
+    <h2>Notes</h2>
+    <p>This is a concept wordmark for review. Final vector files, usage guidance and the wider brand package are separate work to agree.</p>
   </div>
 </main>
 </body>
