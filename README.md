@@ -18,6 +18,7 @@ Open `index.html` in a browser. No build step, no dependencies. To serve locally
 - One subtle disclaimer remains in the footer: "Design concept. Product imagery is illustrative."
 - Three staged product presentations (tumbler, mug, bottle), each with a lit stage, reflection, close up detail circle and a See the concept preview that opens and closes with mouse, keyboard and Escape.
 - New wordmark: heavy condensed UNCANNY with one letter tilted off, a paint drip from the U, a magenta print offset and Artistry hand written on a lime swipe.
+- The wordmark page is now a small identity board: lockups, monogram, drinkware mockups, color, type and clear space.
 - Accessibility: pause control for the moving text and badge, focus handling in the menu and preview, no controls under 44px on touch layouts.
 - Performance: deferred script, fonts preloaded when served online, no unused code, all art is inline vector with no image downloads.
 

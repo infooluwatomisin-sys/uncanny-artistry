@@ -40,6 +40,23 @@ if (/^https?:/.test(location.protocol)) {
   .fallback { font: 800 1.5rem/1 Arial, Helvetica, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
   .lockup { display: flex; align-items: center; gap: 18px; }
   .lockup .mono { width: 84px; height: 84px; flex: none; } .lockup .mono b { font-size: 3.2rem; }
+  .id-grid { display: grid; gap: 18px; margin-top: 18px; }
+  .swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 2.5px solid var(--ink); }
+  .sw { padding: 56px 14px 14px; font-size: .85rem; font-weight: 700; line-height: 1.3; border: 1.25px solid var(--ink); }
+  .sw small { display: block; font-weight: 500; opacity: .8; }
+  .type-card { padding: 28px; border: 2.5px solid var(--ink); background: var(--white); display: grid; gap: 18px; }
+  .type-card .big-a { font-family: var(--font); font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-size: clamp(3rem, 12vw, 5rem); line-height: .85; }
+  .type-card .big-m { font-family: var(--marker); font-size: clamp(1.8rem, 6vw, 2.6rem); line-height: 1.1; color: var(--magenta); }
+  .type-card .big-b { font-size: 1.05rem; line-height: 1.5; max-width: 40ch; }
+  .onprod { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 28px 40px; min-height: 0; }
+  .pw { position: relative; width: 190px; }
+  .pw svg { display: block; width: 100%; height: auto; }
+  .pw .wm { position: absolute; left: 50%; top: 60%; transform: translate(-50%, -50%) rotate(-4deg); --wm: 1.05rem; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); padding: 8px 10px 10px; }
+  .clear { display: grid; place-items: center; padding: 40px; }
+  .clearbox { position: relative; padding: 34px; border: 2px dashed var(--ink); }
+  .clearbox::before { content: "x"; position: absolute; top: 6px; left: 50%; font: 700 .75rem var(--font); }
+  .lp-sub { font-family: var(--font); font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-size: 2rem; line-height: .9; margin: 44px 0 4px; }
+  @media (min-width: 760px) { .swatches { grid-template-columns: repeat(4, 1fr); } .id-grid { grid-template-columns: 1fr 1fr; } }
   .notes { display: grid; gap: 14px; margin-top: 40px; max-width: 62ch; }
   .notes h2 { font-size: 1.1rem; font-weight: 800; }
   .label { font-size: .8rem; color: var(--muted); margin-top: 10px; }
@@ -48,9 +65,134 @@ if (/^https?:/.test(location.protocol)) {
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-  <filter id="rough-sm" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
-</defs></svg>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16"/>
+    </filter>
+    <filter id="rough-sm" x="-5%" y="-20%" width="110%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+    </filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-5%" width="140%" height="110%"><feGaussianBlur stdDeviation="1.6"/></filter>
+
+    <!-- Cylinder shading laid over any base colour -->
+    <linearGradient id="g-cyl" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity=".46"/>
+      <stop offset=".09" stop-color="#000" stop-opacity=".12"/>
+      <stop offset=".24" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".34" stop-color="#fff" stop-opacity=".05"/>
+      <stop offset=".62" stop-color="#000" stop-opacity="0"/>
+      <stop offset=".86" stop-color="#000" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".52"/>
+    </linearGradient>
+    <linearGradient id="g-top" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset=".4" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".3"/>
+    </linearGradient>
+    <radialGradient id="g-shadow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#000" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><circle cx="4.5" cy="4.5" r="2.3" fill="#fff"/></pattern>
+    <mask id="m-dots" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="320"><rect width="200" height="320" fill="url(#dots)"/></mask>
+    <clipPath id="c-tumbler"><path d="M40 46 H160 L147 288 Q146 304 128 304 H72 Q54 304 53 288 Z"/></clipPath>
+    <clipPath id="c-mug"><path d="M28 104 H152 V268 Q152 292 126 292 H54 Q28 292 28 268 Z"/></clipPath>
+    <clipPath id="c-bottle"><path d="M84 48 Q84 66 62 82 Q50 92 50 120 V288 Q50 306 68 306 H132 Q150 306 150 288 V120 Q150 92 138 82 Q116 66 116 48 Z"/></clipPath>
+    <clipPath id="c-glass"><path d="M40 44 H160 L146 290 Q145 304 130 304 H70 Q55 304 54 290 Z"/></clipPath>
+
+    <!-- Tall tumbler with lid and striped straw (concept shape) -->
+    <symbol id="p-tumbler" viewBox="0 0 200 320">
+      <ellipse cx="102" cy="308" rx="74" ry="8" fill="url(#g-shadow)"/>
+      <path d="M120 30 L153 2" stroke="var(--lid)" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M120 30 L153 2" stroke="#fff" stroke-width="3" stroke-dasharray="5 7" stroke-linecap="round" fill="none" opacity=".6"/>
+      <g clip-path="url(#c-tumbler)">
+        <rect x="30" y="40" width="140" height="270" fill="var(--body)"/>
+        <path d="M30 106 H170 V150 H30Z" fill="var(--accent)"/>
+        <path d="M30 156 H170" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M58 202 q10 -22 20 0 t20 0 t20 0 t20 0" stroke="var(--ink)" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+        <rect x="30" y="238" width="140" height="70" fill="var(--ink)" mask="url(#m-dots)"/>
+        <path d="M40 46 H160 L147 288 Q146 304 128 304 H72 Q54 304 53 288 Z" fill="url(#g-cyl)"/>
+        <path d="M40 46 H160 L147 288 Q146 304 128 304 H72 Q54 304 53 288 Z" fill="url(#g-top)"/>
+      </g>
+      <path d="M34 42 Q34 24 54 24 H146 Q166 24 166 42 V48 H34 Z" fill="var(--lid)"/>
+      <path d="M34 42 Q34 24 54 24 H146 Q166 24 166 42 V48 H34 Z" fill="url(#g-cyl)"/>
+      <path d="M38 36 H162 M36 42 H164" stroke="#000" stroke-width="1.4" opacity=".28"/>
+      <ellipse cx="118" cy="28" rx="11" ry="3" fill="#000" opacity=".5"/>
+      <path d="M57 54 H67 L74 292 H65 Z" fill="#fff" opacity=".32" filter="url(#soft)"/>
+    </symbol>
+
+    <!-- Mug with steam (concept shape) -->
+    <symbol id="p-mug" viewBox="0 0 200 320">
+      <ellipse cx="96" cy="298" rx="88" ry="9" fill="url(#g-shadow)"/>
+      <path d="M74 78 q-12 -16 0 -32 t0 -32" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" fill="none" opacity=".9"/>
+      <path d="M108 82 q-12 -16 0 -32 t0 -32" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" fill="none" opacity=".6"/>
+      <path d="M150 140 H172 Q192 140 192 176 Q192 222 172 222 H150" stroke="var(--body)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M150 140 H172 Q192 140 192 176 Q192 222 172 222 H150" stroke="#000" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".14"/>
+      <path d="M152 134 H172 Q186 134 186 170" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".5"/>
+      <g clip-path="url(#c-mug)">
+        <rect x="20" y="98" width="140" height="200" fill="var(--body)"/>
+        <path d="M20 168 H160 V198 H20Z" fill="var(--accent)"/>
+        <path d="M20 204 H160" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M54 242 l14 -17 l12 17 l14 -17 l12 17 l14 -17" stroke="var(--ink)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="20" y="118" width="140" height="44" fill="var(--ink)" mask="url(#m-dots)"/>
+        <path d="M28 104 H152 V268 Q152 292 126 292 H54 Q28 292 28 268 Z" fill="url(#g-cyl)"/>
+        <path d="M28 104 H152 V268 Q152 292 126 292 H54 Q28 292 28 268 Z" fill="url(#g-top)"/>
+      </g>
+      <ellipse cx="90" cy="104" rx="62" ry="11" fill="var(--lid)"/>
+      <ellipse cx="90" cy="105" rx="55" ry="8" fill="#000" opacity=".62"/>
+      <path d="M30 103 Q90 88 150 103" stroke="#fff" stroke-width="2" fill="none" opacity=".5"/>
+      <path d="M41 114 H51 V274 H41 Z" fill="#fff" opacity=".3" filter="url(#soft)"/>
+    </symbol>
+
+    <!-- Bottle with ribbed cap (concept shape) -->
+    <symbol id="p-bottle" viewBox="0 0 200 320">
+      <ellipse cx="100" cy="309" rx="66" ry="8" fill="url(#g-shadow)"/>
+      <rect x="78" y="12" width="44" height="30" rx="6" fill="var(--lid)"/>
+      <rect x="78" y="12" width="44" height="30" rx="6" fill="url(#g-cyl)"/>
+      <path d="M86 16 V40 M94 16 V40 M102 16 V40 M110 16 V40 M118 16 V40" stroke="#000" stroke-width="1.4" opacity=".22"/>
+      <rect x="80" y="42" width="40" height="8" fill="var(--shade)"/>
+      <rect x="80" y="42" width="40" height="8" fill="url(#g-cyl)"/>
+      <g clip-path="url(#c-bottle)">
+        <rect x="40" y="40" width="120" height="270" fill="var(--body)"/>
+        <path d="M40 140 H160 V160 H40Z" fill="var(--accent)"/>
+        <circle cx="100" cy="212" r="30" fill="var(--accent)"/>
+        <path d="M85 197 L115 227 M115 197 L85 227" stroke="var(--lid)" stroke-width="6.5" stroke-linecap="round"/>
+        <rect x="40" y="256" width="120" height="52" fill="var(--ink)" mask="url(#m-dots)"/>
+        <path d="M84 48 Q84 66 62 82 Q50 92 50 120 V288 Q50 306 68 306 H132 Q150 306 150 288 V120 Q150 92 138 82 Q116 66 116 48 Z" fill="url(#g-cyl)"/>
+        <path d="M84 48 Q84 66 62 82 Q50 92 50 120 V288 Q50 306 68 306 H132 Q150 306 150 288 V120 Q150 92 138 82 Q116 66 116 48 Z" fill="url(#g-top)"/>
+      </g>
+      <path d="M60 112 H69 V290 H60 Z" fill="#fff" opacity=".32" filter="url(#soft)"/>
+    </symbol>
+
+    <!-- Tall glass with drink and ice (concept shape) -->
+    <symbol id="p-glass" viewBox="0 0 200 320">
+      <ellipse cx="100" cy="309" rx="68" ry="8" fill="url(#g-shadow)"/>
+      <path d="M40 44 H160 L146 290 Q145 304 130 304 H70 Q55 304 54 290 Z" fill="var(--body)" opacity=".2"/>
+      <g clip-path="url(#c-glass)">
+        <rect x="30" y="122" width="140" height="190" fill="var(--accent)"/>
+        <rect x="30" y="122" width="140" height="6" fill="#fff" opacity=".45"/>
+        <rect x="76" y="146" width="34" height="34" rx="4" fill="#fff" opacity=".42" transform="rotate(14 93 163)"/>
+        <rect x="108" y="190" width="32" height="32" rx="4" fill="#fff" opacity=".36" transform="rotate(-12 124 206)"/>
+        <rect x="64" y="218" width="30" height="30" rx="4" fill="#fff" opacity=".3" transform="rotate(8 79 233)"/>
+        <path d="M40 44 H160 L146 290 Q145 304 130 304 H70 Q55 304 54 290 Z" fill="url(#g-cyl)"/>
+        <path d="M54 276 H146 L146 290 Q145 304 130 304 H70 Q55 304 54 290 Z" fill="#fff" opacity=".28"/>
+      </g>
+      <path d="M40 44 H160 L146 290 Q145 304 130 304 H70 Q55 304 54 290 Z" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
+      <path d="M38 44 H162" stroke="var(--lid)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M58 56 H66 L74 270 H66 Z" fill="#fff" opacity=".5" filter="url(#soft)"/>
+    </symbol>
+
+    <!-- Small star used as a divider mark -->
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 1 L14.2 9.8 L23 12 L14.2 14.2 L12 23 L9.8 14.2 L1 12 L9.8 9.8 Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
 <main class="wrap lp">
   <div class="lp-head">
     <a class="back" href="index.html">Back to the homepage</a>
@@ -62,6 +204,7 @@ if (/^https?:/.test(location.protocol)) {
     <div class="board b-paper big span2"><div><a class="logo" href="index.html" aria-label="Uncanny Artistry"><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></a><p class="label">Primary wordmark on paper</p></div></div>
     <div class="board b-ink big"><div><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span><p class="label">On black</p></div></div>
     <div class="board b-lime big"><div><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span><p class="label" style="color:#0A0A0A">On lime</p></div></div>
+    <div class="board b-white span2"><div><div class="lockup"><div class="mono"><b>U<i>A</i></b></div><span class="wm" role="img" aria-label="Uncanny Artistry" style="--wm:2.6rem"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></div><p class="label">Horizontal lockup, monogram plus wordmark, for wide spaces such as headers and packaging labels</p></div></div>
     <div class="board b-white">
       <div class="sizes">
         <div><div class="mono"><b>U<i>A</i></b></div><p class="label">Monogram</p></div>
@@ -69,9 +212,35 @@ if (/^https?:/.test(location.protocol)) {
         <div><span class="wm" role="img" aria-label="Uncanny Artistry" style="--wm:1.3rem"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span><p class="label">Small wordmark</p></div>
       </div>
     </div>
-    <div class="board b-white span2"><div><div class="lockup"><div class="mono"><b>U<i>A</i></b></div><span class="wm" role="img" aria-label="Uncanny Artistry" style="--wm:2.6rem"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></div><p class="label">Horizontal lockup, monogram plus wordmark, for wide spaces such as headers and packaging labels</p></div></div>
     <div class="board b-white"><div><p class="fallback">Uncanny Artistry</p><p class="label">Plain text fallback if fonts do not load</p></div></div>
   </div>
+
+  <h2 class="lp-sub">On the product</h2>
+  <div class="boards">
+    <div class="board b-lime span2">
+      <div class="onprod">
+        <div class="pw"><svg viewBox="0 0 200 320" aria-hidden="true" style="--body:#fff;--lid:#0A0A0A;--shade:#d9d9d4;--accent:#0A0A0A;--ink:#FF2D8D"><use href="#p-mug"/></svg><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></div>
+        <div class="pw dark"><svg viewBox="0 0 200 320" aria-hidden="true" style="--body:#0A0A0A;--lid:#fff;--shade:#333;--accent:#FF2D8D;--ink:#C8FF2E"><use href="#p-tumbler"/></svg><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></div>
+        <div class="pw"><svg viewBox="0 0 200 320" aria-hidden="true" style="--body:#C8FF2E;--lid:#fff;--shade:#9bc718;--accent:#0A0A0A;--ink:#0A0A0A"><use href="#p-bottle"/></svg></div>
+      </div>
+      <p class="label" style="color:#0A0A0A">Illustrative mockups of the wordmark on drinkware shapes</p>
+    </div>
+  </div>
+
+  <h2 class="lp-sub">Color and type</h2>
+  <div class="swatches" role="list">
+    <div class="sw" role="listitem" style="background:#0A0A0A;color:#EFEFEA">Ink<small>#0A0A0A</small></div>
+    <div class="sw" role="listitem" style="background:#EFEFEA">Paper<small>#EFEFEA</small></div>
+    <div class="sw" role="listitem" style="background:#C8FF2E">Lime<small>#C8FF2E</small></div>
+    <div class="sw" role="listitem" style="background:#FF2D8D;color:#0A0A0A">Magenta<small>#FF2D8D</small></div>
+  </div>
+  <div class="id-grid">
+    <div class="type-card"><p class="big-a">Archivo, tight and heavy</p><p class="big-b">Headlines and the top line of the wordmark. Body text uses the same family at normal width.</p></div>
+    <div class="type-card"><p class="big-m">Permanent Marker for notes</p><p class="big-b">The hand written voice. Used for Artistry in the wordmark and for small notes.</p></div>
+  </div>
+
+  <h2 class="lp-sub">Clear space</h2>
+  <div class="boards"><div class="board b-white span2 clear"><div class="clearbox"><span class="wm" role="img" aria-label="Uncanny Artistry"><span class="wm-top" aria-hidden="true"><b>U</b><b>N</b><b>C</b><b class="off">A</b><b>N</b><b>N</b><b>Y</b></span><span class="wm-bot" aria-hidden="true">Artistry</span></span></div></div></div>
 
   <div class="notes">
     <h2>Notes</h2>
